@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Component</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>Type 1:</h2>
+        <list-component :data="type1Data"></list-component>
+
+        <h2>Type 2:</h2>
+        <list-component :data="type2Data"></list-component>
+
+        <h2>Type 3:</h2>
+        <list-component :data="type3Data"></list-component>
+    </div>
+
+    <script>
+        Vue.component('list-component', {
+            props: {
+                data: {
+                    type: Array,
+                    required: true
+                }
+            },
+            computed: {
+                isType1() {
+                    return this.data.length > 0 && 'name' in this.data[0];
+                },
+                isType2() {
+                    return this.data.length > 0 && 'title' in this.data[0];
+                },
+                isType3() {
+                    return this.data.length > 0 && 'winner' in this.data[0];
+                }
+            },
+            template: `
+        <div :class="isType3 ? 'winnerBox' : 'box' ">
+            <h3 v-if="isType3"> Top 3 Winners </h3>
+            <div v-for="(item, index) in data" :key="index" class="listWrap">
+              <template v-if="isType1" >
+                <div>Student: {{ item.name }}</div>
+                <div>Year: {{ item.year }}, Room: {{ item.class }}</div>
+              </template>
+              <template v-else-if="isType2">
+                <div>Title: {{ item.title }}</div>
+                <div>Category: {{ item.category }} | {{ item.rating }} likes</div>
+              </template>
+              <template v-else-if="isType3">
+                <div>{{ item.rank }} {{ item.winner }}</div>
+              </template>
+            </div>
+        </div>
+      `
+        });
+
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    type1Data: [
+                        {
+                            name: 'Anna',
+                            year: 10,
+                            class: 'A'
+                        },
+                        {
+                            name: 'Mark',
+                            year: 10,
+                            class: 'M'
+                        }
+                    ],
+                    type2Data: [
+                        {
+                            title: 'JS Info',
+                            category: 'book',
+                            rating: 10
+                        },
+                        {
+                            title: 'Fantasy',
+                            category: 'movie',
+                            rating: 6
+                        }
+                    ],
+                    type3Data: [
+                        {
+                            winner: 'Amy',
+                            rank: 1
+                        },
+                        {
+                            winner: 'Bob',
+                            rank: 2
+                        },
+                        {
+                            winner: 'Jack',
+                            rank: 2
+                        }
+                    ]
+                };
+            }
+        });
+    </script>
+</body>
+
+<style>
+    .box {
+        background-color: #e5e5e5;
+        padding: 14px;
+    }
+
+    .listWrap {
+        background: white;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .listWrap:last-child {
+        margin-bottom: 0;
+    }
+
+    .listWrap>div {
+        margin-bottom: 10px;
+    }
+
+    .winnerBox {
+        background-color: black;
+        padding: 14px;
+        padding-top: 20px;
+    }
+
+    .winnerBox .listWrap {
+        padding: 10px 20px;
+    }
+
+    .winnerBox .listWrap div {
+        margin: 0;
+        font-size: 24px;
+    }
+
+
+    h3 {
+        color: white;
+    }
+</style>
+
+</html>
