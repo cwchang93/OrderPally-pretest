@@ -1,6 +1,4 @@
 // Q2:
-// 菜, 原料
-// input 
 // const recipes = [
 //     ["Salad", "Tomato", "Cucumber", "Salad", "Sauce"],
 //     ["Pizza", "Tomato", "Sausage", "Sauce", "Dough"],
@@ -16,14 +14,7 @@ const recipes = [
     ["Sandwich", "Cheese", "Bread"],
     ["Quesadilla", "Chicken", "Cheese"]
 ]
-// solution(recipes)
 
-// output [
-//  ["Cheese", "Quesadilla", "Sandwich"], 
-//  ["Salad", "Salad", "Sandwich"],
-//  ["Sauce", "Pizza", "Quesadilla", "Salad"],
-//  ["Tomato", "Pizza", "Salad", "Sandwich"]
-// ]
 
 function solution(recipes) {
     const obj = {};
@@ -54,11 +45,3 @@ function solution(recipes) {
 
 
 solution(recipes)
-
-// const ordered = Object.keys(obj2).sort().reduce(
-//   (obj, key) => { 
-//     obj[key] = obj2[key]; 
-//     return obj;
-//   }, 
-//   {}
-// );
